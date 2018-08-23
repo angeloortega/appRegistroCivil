@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="neSolicitud.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="apellidos">
+          <Key>
+            <PropertyRef Name="apellido" />
+          </Key>
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Audios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="info_bytes" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="info_bytes" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="nombres">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="idPais" />
+          </Key>
+          <Property Name="idPais" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="nbrPais" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="area" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="poblacionActual" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="fotoBandera" Type="int" Nullable="false" />
+          <Property Name="himnoNacional" Type="int" Nullable="false" />
+          <Property Name="idPresidenteActual" Type="numeric" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+            <PropertyRef Name="idPaisResidencia" />
+          </Key>
+          <Property Name="idPersona" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="nbrPersona" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="idPaisNacimiento" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="idPaisResidencia" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="fchNacimiento" Type="date" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="150" />
+          <Property Name="foto" Type="int" Nullable="false" />
+          <Property Name="videoEntrevista" Type="int" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="info_bytes" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="pais_FK1">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="Pais" Type="Self.Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="fotoBandera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pais_FK2">
+          <End Role="Audios" Type="Self.Audios" Multiplicity="1" />
+          <End Role="Pais" Type="Self.Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Audios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="himnoNacional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK1">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="idPaisNacimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK2">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="idPaisResidencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK3">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="videoEntrevista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK4">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="foto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_EdadPromedio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GenerarPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cantidadPaises" Type="int" Mode="In" />
+          <Parameter Name="personasxPais" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Nacimientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="neSolicitudStoreContainer">
+          <EntitySet Name="apellidos" EntityType="Self.apellidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Audios" EntityType="Self.Audios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nombres" EntityType="Self.nombres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="pais_FK1" Association="Self.pais_FK1">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
+          <AssociationSet Name="pais_FK2" Association="Self.pais_FK2">
+            <End Role="Audios" EntitySet="Audios" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK1" Association="Self.persona_FK1">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK2" Association="Self.persona_FK2">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK3" Association="Self.persona_FK3">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK4" Association="Self.persona_FK4">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="neSolicitud" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="apellidos">
+          <Key>
+            <PropertyRef Name="apellido" />
+          </Key>
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Audios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="info_bytes" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Pais" Relationship="Self.pais_FK2" FromRole="Audios" ToRole="Pais" />
+        </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="info_bytes" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Pais" Relationship="Self.pais_FK1" FromRole="Imagenes" ToRole="Pais" />
+          <NavigationProperty Name="Persona" Relationship="Self.persona_FK4" FromRole="Imagenes" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="nombres">
+          <Key>
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="idPais" />
+          </Key>
+          <Property Name="idPais" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="nbrPais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="area" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="poblacionActual" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="fotoBandera" Type="Int32" Nullable="false" />
+          <Property Name="himnoNacional" Type="Int32" Nullable="false" />
+          <Property Name="idPresidenteActual" Type="Decimal" Precision="10" Scale="0" />
+          <NavigationProperty Name="Audios" Relationship="Self.pais_FK2" FromRole="Pais" ToRole="Audios" />
+          <NavigationProperty Name="Imagenes" Relationship="Self.pais_FK1" FromRole="Pais" ToRole="Imagenes" />
+          <NavigationProperty Name="Persona" Relationship="Self.persona_FK1" FromRole="Pais" ToRole="Persona" />
+          <NavigationProperty Name="Persona1" Relationship="Self.persona_FK2" FromRole="Pais" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+            <PropertyRef Name="idPaisResidencia" />
+          </Key>
+          <Property Name="idPersona" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="nbrPersona" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPaisNacimiento" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="idPaisResidencia" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="fchNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="correo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="Int32" Nullable="false" />
+          <Property Name="videoEntrevista" Type="Int32" />
+          <NavigationProperty Name="Imagenes" Relationship="Self.persona_FK4" FromRole="Persona" ToRole="Imagenes" />
+          <NavigationProperty Name="Pais" Relationship="Self.persona_FK1" FromRole="Persona" ToRole="Pais" />
+          <NavigationProperty Name="Pais1" Relationship="Self.persona_FK2" FromRole="Persona" ToRole="Pais" />
+          <NavigationProperty Name="Videos" Relationship="Self.persona_FK3" FromRole="Persona" ToRole="Videos" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="info_bytes" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="Self.persona_FK3" FromRole="Videos" ToRole="Persona" />
+        </EntityType>
+        <Association Name="pais_FK2">
+          <End Role="Audios" Type="Self.Audios" Multiplicity="1" />
+          <End Role="Pais" Type="Self.Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Audios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="himnoNacional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pais_FK1">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="Pais" Type="Self.Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="fotoBandera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK4">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="foto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK1">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="idPaisNacimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK2">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="idPaisResidencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="persona_FK3">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="videoEntrevista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bdSolicitud" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="apellidos" EntityType="Self.apellidos" />
+          <EntitySet Name="Audios" EntityType="Self.Audios" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" />
+          <EntitySet Name="nombres" EntityType="Self.nombres" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" />
+          <AssociationSet Name="pais_FK2" Association="Self.pais_FK2">
+            <End Role="Audios" EntitySet="Audios" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
+          <AssociationSet Name="pais_FK1" Association="Self.pais_FK1">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK4" Association="Self.persona_FK4">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK1" Association="Self.persona_FK1">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK2" Association="Self.persona_FK2">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="persona_FK3" Association="Self.persona_FK3">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <FunctionImport Name="SP_EdadPromedio" ReturnType="Collection(neSolicitud.SP_EdadPromedio_Result)" />
+          <FunctionImport Name="SP_GenerarPersonas">
+            <Parameter Name="cantidadPaises" Mode="In" Type="Int32" />
+            <Parameter Name="personasxPais" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Nacimientos" ReturnType="Collection(neSolicitud.SP_Nacimientos_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SP_EdadPromedio_Result">
+          <Property Type="Decimal" Name="idPais" Nullable="false" Precision="3" Scale="0" />
+          <Property Type="String" Name="nbrPais" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="edadPromedio" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="poblacionActual" Nullable="false" Precision="10" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="SP_Nacimientos_Result">
+          <Property Type="Decimal" Name="idPais" Nullable="true" Precision="3" Scale="0" />
+          <Property Type="Int32" Name="anhoNacimiento" Nullable="true" />
+          <Property Type="Int32" Name="totalDePersonas" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="neSolicitudStoreContainer" CdmEntityContainer="bdSolicitud">
+          <EntitySetMapping Name="apellidos">
+            <EntityTypeMapping TypeName="neSolicitud.apellidos">
+              <MappingFragment StoreEntitySet="apellidos">
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Audios">
+            <EntityTypeMapping TypeName="neSolicitud.Audios">
+              <MappingFragment StoreEntitySet="Audios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="info_bytes" ColumnName="info_bytes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Imagenes">
+            <EntityTypeMapping TypeName="neSolicitud.Imagenes">
+              <MappingFragment StoreEntitySet="Imagenes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="info_bytes" ColumnName="info_bytes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nombres">
+            <EntityTypeMapping TypeName="neSolicitud.nombres">
+              <MappingFragment StoreEntitySet="nombres">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="neSolicitud.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="nbrPais" ColumnName="nbrPais" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="poblacionActual" ColumnName="poblacionActual" />
+                <ScalarProperty Name="fotoBandera" ColumnName="fotoBandera" />
+                <ScalarProperty Name="himnoNacional" ColumnName="himnoNacional" />
+                <ScalarProperty Name="idPresidenteActual" ColumnName="idPresidenteActual" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persona">
+            <EntityTypeMapping TypeName="neSolicitud.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="nbrPersona" ColumnName="nbrPersona" />
+                <ScalarProperty Name="idPaisNacimiento" ColumnName="idPaisNacimiento" />
+                <ScalarProperty Name="idPaisResidencia" ColumnName="idPaisResidencia" />
+                <ScalarProperty Name="fchNacimiento" ColumnName="fchNacimiento" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="videoEntrevista" ColumnName="videoEntrevista" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="neSolicitud.Videos">
+              <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="info_bytes" ColumnName="info_bytes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_EdadPromedio" FunctionName="neSolicitud.Store.SP_EdadPromedio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="neSolicitud.SP_EdadPromedio_Result">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="nbrPais" ColumnName="nbrPais" />
+                <ScalarProperty Name="edadPromedio" ColumnName="edadPromedio" />
+                <ScalarProperty Name="poblacionActual" ColumnName="poblacionActual" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GenerarPersonas" FunctionName="neSolicitud.Store.SP_GenerarPersonas" />
+          <FunctionImportMapping FunctionImportName="SP_Nacimientos" FunctionName="neSolicitud.Store.SP_Nacimientos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="neSolicitud.SP_Nacimientos_Result">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="anhoNacimiento" ColumnName="anhoNacimiento" />
+                <ScalarProperty Name="totalDePersonas" ColumnName="totalDePersonas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
