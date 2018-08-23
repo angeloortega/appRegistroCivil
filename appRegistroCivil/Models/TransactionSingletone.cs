@@ -6,8 +6,7 @@ using System.Web;
 
 namespace appRegistroCivil.Models
 {
-    namespace appPedido.Models
-    {
+
         public class TransactionSingletone
         {
             private static volatile TransactionSingletone instance = null;
@@ -45,4 +44,3 @@ namespace appRegistroCivil.Models
             }
         }
     }
-}
