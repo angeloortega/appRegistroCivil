@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="neSolicitud.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="RegistroCivilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="apellidos">
           <Key>
             <PropertyRef Name="apellido" />
@@ -145,7 +145,7 @@
           <Parameter Name="personasxPais" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_Nacimientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="neSolicitudStoreContainer">
+        <EntityContainer Name="RegistroCivilModelStoreContainer">
           <EntitySet Name="apellidos" EntityType="Self.apellidos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Audios" EntityType="Self.Audios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="dbo" store:Type="Tables" />
@@ -182,7 +182,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="neSolicitud" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="RegistroCivilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="apellidos">
           <Key>
             <PropertyRef Name="apellido" />
@@ -329,7 +329,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bdSolicitud" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RegistroCivilEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="apellidos" EntityType="Self.apellidos" />
           <EntitySet Name="Audios" EntityType="Self.Audios" />
           <EntitySet Name="Imagenes" EntityType="Self.Imagenes" />
@@ -361,12 +361,12 @@
             <End Role="Videos" EntitySet="Videos" />
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
-          <FunctionImport Name="SP_EdadPromedio" ReturnType="Collection(neSolicitud.SP_EdadPromedio_Result)" />
+          <FunctionImport Name="SP_EdadPromedio" ReturnType="Collection(RegistroCivilModel.SP_EdadPromedio_Result)" />
           <FunctionImport Name="SP_GenerarPersonas">
             <Parameter Name="cantidadPaises" Mode="In" Type="Int32" />
             <Parameter Name="personasxPais" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_Nacimientos" ReturnType="Collection(neSolicitud.SP_Nacimientos_Result)" />
+          <FunctionImport Name="SP_Nacimientos" ReturnType="Collection(RegistroCivilModel.SP_Nacimientos_Result)" />
         </EntityContainer>
         <ComplexType Name="SP_EdadPromedio_Result">
           <Property Type="Decimal" Name="idPais" Nullable="false" Precision="3" Scale="0" />
@@ -384,16 +384,16 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="neSolicitudStoreContainer" CdmEntityContainer="bdSolicitud">
+        <EntityContainerMapping StorageEntityContainer="RegistroCivilModelStoreContainer" CdmEntityContainer="RegistroCivilEntities">
           <EntitySetMapping Name="apellidos">
-            <EntityTypeMapping TypeName="neSolicitud.apellidos">
+            <EntityTypeMapping TypeName="RegistroCivilModel.apellidos">
               <MappingFragment StoreEntitySet="apellidos">
                 <ScalarProperty Name="apellido" ColumnName="apellido" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Audios">
-            <EntityTypeMapping TypeName="neSolicitud.Audios">
+            <EntityTypeMapping TypeName="RegistroCivilModel.Audios">
               <MappingFragment StoreEntitySet="Audios">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -402,7 +402,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Imagenes">
-            <EntityTypeMapping TypeName="neSolicitud.Imagenes">
+            <EntityTypeMapping TypeName="RegistroCivilModel.Imagenes">
               <MappingFragment StoreEntitySet="Imagenes">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -411,14 +411,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="nombres">
-            <EntityTypeMapping TypeName="neSolicitud.nombres">
+            <EntityTypeMapping TypeName="RegistroCivilModel.nombres">
               <MappingFragment StoreEntitySet="nombres">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pais">
-            <EntityTypeMapping TypeName="neSolicitud.Pais">
+            <EntityTypeMapping TypeName="RegistroCivilModel.Pais">
               <MappingFragment StoreEntitySet="Pais">
                 <ScalarProperty Name="idPais" ColumnName="idPais" />
                 <ScalarProperty Name="nbrPais" ColumnName="nbrPais" />
@@ -431,7 +431,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Persona">
-            <EntityTypeMapping TypeName="neSolicitud.Persona">
+            <EntityTypeMapping TypeName="RegistroCivilModel.Persona">
               <MappingFragment StoreEntitySet="Persona">
                 <ScalarProperty Name="idPersona" ColumnName="idPersona" />
                 <ScalarProperty Name="nbrPersona" ColumnName="nbrPersona" />
@@ -445,7 +445,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Videos">
-            <EntityTypeMapping TypeName="neSolicitud.Videos">
+            <EntityTypeMapping TypeName="RegistroCivilModel.Videos">
               <MappingFragment StoreEntitySet="Videos">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -453,9 +453,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_EdadPromedio" FunctionName="neSolicitud.Store.SP_EdadPromedio">
+          <FunctionImportMapping FunctionImportName="SP_EdadPromedio" FunctionName="RegistroCivilModel.Store.SP_EdadPromedio">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="neSolicitud.SP_EdadPromedio_Result">
+              <ComplexTypeMapping TypeName="RegistroCivilModel.SP_EdadPromedio_Result">
                 <ScalarProperty Name="idPais" ColumnName="idPais" />
                 <ScalarProperty Name="nbrPais" ColumnName="nbrPais" />
                 <ScalarProperty Name="edadPromedio" ColumnName="edadPromedio" />
@@ -463,10 +463,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GenerarPersonas" FunctionName="neSolicitud.Store.SP_GenerarPersonas" />
-          <FunctionImportMapping FunctionImportName="SP_Nacimientos" FunctionName="neSolicitud.Store.SP_Nacimientos">
+          <FunctionImportMapping FunctionImportName="SP_GenerarPersonas" FunctionName="RegistroCivilModel.Store.SP_GenerarPersonas" />
+          <FunctionImportMapping FunctionImportName="SP_Nacimientos" FunctionName="RegistroCivilModel.Store.SP_Nacimientos">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="neSolicitud.SP_Nacimientos_Result">
+              <ComplexTypeMapping TypeName="RegistroCivilModel.SP_Nacimientos_Result">
                 <ScalarProperty Name="idPais" ColumnName="idPais" />
                 <ScalarProperty Name="anhoNacimiento" ColumnName="anhoNacimiento" />
                 <ScalarProperty Name="totalDePersonas" ColumnName="totalDePersonas" />

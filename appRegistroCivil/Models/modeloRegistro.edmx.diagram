@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bebf3849ad1a46c08d2e053cb116b093" Name="Diagram1">
+        <EntityTypeShape EntityType="RegistroCivilModel.apellidos" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroCivilModel.Audios" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroCivilModel.Imagenes" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroCivilModel.nombres" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroCivilModel.Pais" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroCivilModel.Persona" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroCivilModel.Videos" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="RegistroCivilModel.pais_FK2" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroCivilModel.pais_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroCivilModel.persona_FK4" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroCivilModel.persona_FK1" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroCivilModel.persona_FK2" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroCivilModel.persona_FK3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

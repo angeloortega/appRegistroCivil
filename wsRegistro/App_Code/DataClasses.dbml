@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RegistroCivil" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ecRhin.ec.tec.ac.cr\Estudiantes;Initial Catalog=RegistroCivil;Persist Security Info=True;User ID=angramirez" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RegistroCivilConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Audios" Member="Audios">
+    <Type Name="Audio">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="info_bytes" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Audio_Pai" Member="Pais" ThisKey="id" OtherKey="himnoNacional" Type="Pai" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Imagenes" Member="Imagenes">
+    <Type Name="Imagene">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="info_bytes" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Imagene_Persona" Member="Personas" ThisKey="id" OtherKey="foto" Type="Persona" />
+      <Association Name="Imagene_Pai" Member="Pais" ThisKey="id" OtherKey="fotoBandera" Type="Pai" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Videos" Member="Videos">
+    <Type Name="Video">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="info_bytes" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Video_Persona" Member="Personas" ThisKey="id" OtherKey="videoEntrevista" Type="Persona" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Persona" Member="Personas">
+    <Type Name="Persona">
+      <Column Name="idPersona" Type="System.Decimal" DbType="Decimal(10,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nbrPersona" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="idPaisNacimiento" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" CanBeNull="false" />
+      <Column Name="idPaisResidencia" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="fchNacimiento" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="correo" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="foto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="videoEntrevista" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Video_Persona" Member="Video" ThisKey="videoEntrevista" OtherKey="id" Type="Video" IsForeignKey="true" />
+      <Association Name="Imagene_Persona" Member="Imagene" ThisKey="foto" OtherKey="id" Type="Imagene" IsForeignKey="true" />
+      <Association Name="Pai_Persona" Member="Pai" ThisKey="idPaisNacimiento" OtherKey="idPais" Type="Pai" IsForeignKey="true" />
+      <Association Name="Pai_Persona1" Member="Pai1" ThisKey="idPaisResidencia" OtherKey="idPais" Type="Pai" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pais" Member="Pais">
+    <Type Name="Pai">
+      <Column Name="idPais" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nbrPais" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="area" Type="System.Decimal" DbType="Decimal(12,2) NOT NULL" CanBeNull="false" />
+      <Column Name="poblacionActual" Type="System.Decimal" DbType="Decimal(10,0) NOT NULL" CanBeNull="false" />
+      <Column Name="fotoBandera" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="himnoNacional" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idPresidenteActual" Type="System.Decimal" DbType="Decimal(10,0)" CanBeNull="true" />
+      <Association Name="Pai_Persona" Member="Personas" ThisKey="idPais" OtherKey="idPaisNacimiento" Type="Persona" />
+      <Association Name="Pai_Persona1" Member="Personas1" ThisKey="idPais" OtherKey="idPaisResidencia" Type="Persona" />
+      <Association Name="Imagene_Pai" Member="Imagene" ThisKey="fotoBandera" OtherKey="id" Type="Imagene" IsForeignKey="true" />
+      <Association Name="Audio_Pai" Member="Audio" ThisKey="himnoNacional" OtherKey="id" Type="Audio" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

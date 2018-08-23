@@ -15,10 +15,10 @@ namespace appRegistroCivil.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class bdSolicitud : DbContext
+    public partial class RegistroCivilEntities : DbContext
     {
-        public bdSolicitud()
-            : base("name=bdSolicitud")
+        public RegistroCivilEntities()
+            : base("name=RegistroCivilEntities")
         {
         }
     

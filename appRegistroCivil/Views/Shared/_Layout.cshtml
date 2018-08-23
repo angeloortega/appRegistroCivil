@@ -1,28 +1,141 @@
 ﻿<!DOCTYPE html>
+
+<style>
+    select {
+        min-height: 30px;
+    }
+
+    video {
+        min-width: 240px;
+        min-height: 180px;
+        max-width: 240px;
+        max-height: 180px;
+    }
+
+    .dropdown-submenu {
+        position: relative;
+    }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu > a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover > a:after {
+            border-left-color: #fff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+            .dropdown-submenu.pull-left > .dropdown-menu {
+                left: -100%;
+                margin-left: 10px;
+                -webkit-border-radius: 6px 0 6px 6px;
+                -moz-border-radius: 6px 0 6px 6px;
+                border-radius: 6px 0 6px 6px;
+            }
+</style>
+
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Fifa 19</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #00985f; color: #fff;">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            <div class="navbar-collapse collapse" style=" color: #fff;">
+                <a href="/Home/Index" class="navbar-left"><img src="~/Resources/logo.png" width="40" height="40"></a>
+                <ul class=" nav nav-pills" style=" color: #fff; padding-left: 2em;">
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style=" color: #fff;">
+                            Funcionarios
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Control de Funcionario", "Index", "Funcionarios")</li>
+                            <li>@Html.ActionLink("Control de Jugador", "Index", "Jugadors")</li>
+                            <li>@Html.ActionLink("Control de Entrenador", "Index", "Entrenadors")</li>
+                            <li>@Html.ActionLink("Control de Arbitros", "Index", "Arbitroes")</li>
+                            <li>@Html.ActionLink("Control de Contratos", "Index", "Contratoes")</li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style=" color: #fff;">
+                            Federaciones
+                        </a>
+                        <ul class="dropdown-menu multi-level" role="menu">
+                            <li>@Html.ActionLink("Control de Federacion", "Index", "Federacions")</li>
+                            <li class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Competencias</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Control de Competicion", "Index", "Competicions")</li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            Torneos
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Control de Torneo", "Index", "Torneos")</li>
+                                            <li class="divider"></li>
+                                            <li class="dropdown-submenu">
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    Partidos
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>@Html.ActionLink("Control de Partido", "Index", "Partidoes")</li>
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style=" color: #fff;">
+                            Clubes
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Control de Club", "Index", "Clubs")</li>
+                            <li>@Html.ActionLink("Control de Socio", "Index", "Socios")</li>
+
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -31,7 +144,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - FIFA 19 Application</p>
         </footer>
     </div>
 
@@ -40,3 +153,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

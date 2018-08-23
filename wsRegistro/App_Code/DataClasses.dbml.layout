@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataClasses">
+  <DataContextMoniker Name="/DataClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="cdbf31a0-6b4e-4a81-a402-04a602652bbe" absoluteBounds="0.75, 0.875, 2, 1.3862939453125">
+      <DataClassMoniker Name="/DataClassesDataContext/Audio" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7ad3e11a-71d6-4bb5-942c-a55cd0db37fb" absoluteBounds="0.765, 1.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="505691cc-0f0d-4a01-bcbc-ebfc1dcbf064" absoluteBounds="0.75, 3.875, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/DataClassesDataContext/Imagene" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2eb87576-993a-4658-b811-9da0448d2623" absoluteBounds="0.765, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f0cbc225-51af-4ef3-a04b-2e63e589b972" absoluteBounds="3.5, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/DataClassesDataContext/Video" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1c5e4da5-8ab1-420f-b333-039d82249be1" absoluteBounds="3.515, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="20f762d0-63d1-4130-bc82-463afd865f83" absoluteBounds="6.25, 3.375, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/DataClassesDataContext/Persona" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cc1bd68d-9c26-4a78-9abc-991171a0c0f0" absoluteBounds="6.265, 3.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="28812544-9b59-46eb-8ce2-7fa9432d407f" absoluteBounds="3.5, 3.375, 2, 2.1554996744791675">
+      <DataClassMoniker Name="/DataClassesDataContext/Pai" />
+      <nestedChildShapes>
+        <elementListCompartment Id="42aec45e-18fd-408b-81e6-9a75b4436a49" absoluteBounds="3.515, 3.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 1.44314697265625); (7.25 : 1.44314697265625); (7.25 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Video/Video_Persona" />
+      <nodes>
+        <classShapeMoniker Id="f0cbc225-51af-4ef3-a04b-2e63e589b972" />
+        <classShapeMoniker Id="20f762d0-63d1-4130-bc82-463afd865f83" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 5.2612939453125); (1.75 : 5.657900390625); (6.25 : 5.657900390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Imagene/Imagene_Persona" />
+      <nodes>
+        <classShapeMoniker Id="505691cc-0f0d-4a01-bcbc-ebfc1dcbf064" />
+        <classShapeMoniker Id="20f762d0-63d1-4130-bc82-463afd865f83" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 4.45274983723958); (6.25 : 4.45274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Pai/Pai_Persona" />
+      <nodes>
+        <classShapeMoniker Id="28812544-9b59-46eb-8ce2-7fa9432d407f" />
+        <classShapeMoniker Id="20f762d0-63d1-4130-bc82-463afd865f83" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 3.85137491861979); (6.25 : 3.85137491861979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Pai/Pai_Persona1" />
+      <nodes>
+        <classShapeMoniker Id="28812544-9b59-46eb-8ce2-7fa9432d407f" />
+        <classShapeMoniker Id="20f762d0-63d1-4130-bc82-463afd865f83" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.56814697265625); (3.5 : 4.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Imagene/Imagene_Pai" />
+      <nodes>
+        <classShapeMoniker Id="505691cc-0f0d-4a01-bcbc-ebfc1dcbf064" />
+        <classShapeMoniker Id="28812544-9b59-46eb-8ce2-7fa9432d407f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.2612939453125); (3.125 : 2.6362939453125); (3.125 : 3.94032148632812); (3.5 : 3.94032148632812)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Audio/Audio_Pai" />
+      <nodes>
+        <classShapeMoniker Id="cdbf31a0-6b4e-4a81-a402-04a602652bbe" />
+        <classShapeMoniker Id="28812544-9b59-46eb-8ce2-7fa9432d407f" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
