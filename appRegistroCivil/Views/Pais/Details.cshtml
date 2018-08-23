@@ -1,0 +1,66 @@
+﻿@model appRegistroCivil.Models.Pais
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pais</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nbrPais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nbrPais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.poblacionActual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poblacionActual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idPresidenteActual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idPresidenteActual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Audios.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Audios.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imagenes.descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idPais }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

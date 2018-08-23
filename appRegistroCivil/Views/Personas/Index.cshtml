@@ -1,0 +1,69 @@
+﻿@model IEnumerable<appRegistroCivil.Models.Persona>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nbrPersona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fchNacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.correo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pais.nbrPais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pais1.nbrPais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Videos.descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nbrPersona)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fchNacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.correo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imagenes.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pais.nbrPais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pais1.nbrPais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Videos.descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
