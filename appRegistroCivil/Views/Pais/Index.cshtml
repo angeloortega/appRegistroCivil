@@ -9,58 +9,55 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<div style="height: 550px; overflow: auto;">
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nbrPais)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.area)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.poblacionActual)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.idPresidenteActual)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Audios.descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagenes.descripcion)
-            </th>
-            <th></th>
-        </tr>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nbrPais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.poblacionActual)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idPresidenteActual)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Audios.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
+        </th>
+        <th></th>
+    </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nbrPais)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.area)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.poblacionActual)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.idPresidenteActual)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Audios.descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Imagenes.descripcion)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.idPais }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.idPais }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.idPais })
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nbrPais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.poblacionActual)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idPresidenteActual)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Audios.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imagenes.descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idPais }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idPais }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idPais })
+        </td>
+    </tr>
+}
 
-    </table>
-</div>
+</table>

@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using appRegistroCivil.Models;
 
-namespace appRegistroCivil.Models
+namespace appRegistroCivil.Views
 {
     public class PaisController : Controller
     {

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<appRegistroCivil.Models.Persona>
+
+<h2>Index Personas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div style="height: 550px; overflow: auto;">
+    <table class="table">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Nombre Persona
+            </th>
+            <th>
+                Pais Nacimiento
+            </th>
+            <th>
+                Pais Residencia
+            </th>
+            <th>
+                Fecha de Nacimiento
+            </th>
+            <th>
+                Correo
+            </th>
+            <th>
+                Foto
+            </th>
+            <th>
+                Video Entrevista
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nbrPersona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idPaisNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idPaisResidencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fchNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.foto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.videoEntrevista)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idPersona }) |
+                @Html.ActionLink("Details", "Details", new { id = item.idPersona }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.idPersona })
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>

@@ -16,7 +16,23 @@ namespace appRegistroCivil.Views
 
         // GET: Personas
         public ActionResult Index()
-        {  
+        {
+            //id = 1;
+            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos);
+            ViewBag.totalPaises = db.Pais.Count();
+            Pais pais = db.Pais.First();
+            //Pais pais = db.Pais.Where(x=>x.idPais == id).First();
+            ViewBag.nombrePais = pais.nbrPais;
+            ViewBag.area = pais.area;
+            ViewBag.pobActual = pais.poblacionActual;
+            ViewBag.idPresi = pais.idPresidenteActual;
+            ViewBag.audios = pais.himnoNacional;
+            ViewBag.foto = pais.fotoBandera;
+            return View(persona.ToList());
+        }
+
+        public ActionResult ListaPersonas()
+        {
             var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos);
             return View(persona.ToList());
         }
