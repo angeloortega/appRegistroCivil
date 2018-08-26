@@ -1,0 +1,72 @@
+﻿@model appRegistroCivil.Models.Pais
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Pais</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nbrPais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nbrPais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.poblacionActual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poblacionActual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idPresidenteActual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idPresidenteActual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Audios.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Audios.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imagenes.descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
