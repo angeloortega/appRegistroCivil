@@ -154,6 +154,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -191,7 +192,7 @@
     <Compile Include="Models\Persona.cs">
       <DependentUpon>modeloRegistro.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SP_EdadPromedio_Result.cs">
+    <Compile Include="Models\SP_EdadPromedio1_Result.cs">
       <DependentUpon>modeloRegistro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Nacimientos_Result.cs">
@@ -299,9 +300,13 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Persona\create.cshtml" />
+    <Content Include="Views\Pais\EdadPromedio.cshtml" />
+    <Content Include="Views\Pais\EstadisticaNacimiento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\EdadPromedio\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

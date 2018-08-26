@@ -65,7 +65,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fifa 19</title>
+    <title>Registro Civil</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required: false)
@@ -84,55 +84,10 @@
                             Funcionarios
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Control de Funcionario", "Index", "Funcionarios")</li>
-                            <li>@Html.ActionLink("Control de Jugador", "Index", "Jugadors")</li>
-                            <li>@Html.ActionLink("Control de Entrenador", "Index", "Entrenadors")</li>
-                            <li>@Html.ActionLink("Control de Arbitros", "Index", "Arbitroes")</li>
-                            <li>@Html.ActionLink("Control de Contratos", "Index", "Contratoes")</li>
+                            <li>@Html.ActionLink("Control de Países", "Index", "Pais")</li>
+                            <li>@Html.ActionLink("Edad Promedio y Población", "EdadPromedio", "Pais")</li>
+                            <li>@Html.ActionLink("Estadísticas de Nacimientos", "EstadisticaNacimiento", "Pais")</li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style=" color: #fff;">
-                            Federaciones
-                        </a>
-                        <ul class="dropdown-menu multi-level" role="menu">
-                            <li>@Html.ActionLink("Control de Federacion", "Index", "Federacions")</li>
-                            <li class="divider"></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Competencias</a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Control de Competicion", "Index", "Competicions")</li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-submenu">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            Torneos
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>@Html.ActionLink("Control de Torneo", "Index", "Torneos")</li>
-                                            <li class="divider"></li>
-                                            <li class="dropdown-submenu">
-                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                    Partidos
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li>@Html.ActionLink("Control de Partido", "Index", "Partidoes")</li>
-
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style=" color: #fff;">
-                            Clubes
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Control de Club", "Index", "Clubs")</li>
-                            <li>@Html.ActionLink("Control de Socio", "Index", "Socios")</li>
 
                         </ul>
                     </li>
@@ -144,7 +99,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - FIFA 19 Application</p>
+            <p>&copy; @DateTime.Now.Year -  Registro Civil Mundial</p>
         </footer>
     </div>
 

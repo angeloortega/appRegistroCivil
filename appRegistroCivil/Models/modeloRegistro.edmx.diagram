@@ -18,6 +18,7 @@
         <AssociationConnector Association="RegistroCivilModel.persona_FK1" ManuallyRouted="false" />
         <AssociationConnector Association="RegistroCivilModel.persona_FK2" ManuallyRouted="false" />
         <AssociationConnector Association="RegistroCivilModel.persona_FK3" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroCivilModel.pais_fk3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

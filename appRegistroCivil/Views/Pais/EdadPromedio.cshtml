@@ -1,0 +1,47 @@
+﻿@model IEnumerable<appRegistroCivil.Models.SP_EdadPromedio1_Result>
+
+@{
+    ViewBag.Title = "EdadPromedio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edad Promedio de Países</h2>
+<div style="height: 550px; overflow: auto;">
+    <table class="table">
+        <tr>
+            <th>
+                Id País
+            </th>
+            <th>
+                Nombre País
+            </th>
+            <th>
+                Edad Promedio
+            </th>
+            <th>
+                Poblacion Actual
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idPais)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nbrPais)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.edadPromedio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoblacionActual)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+@Html.ActionLink("Back to List", "Index")

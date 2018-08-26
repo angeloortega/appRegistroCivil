@@ -4,10 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Personas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Create Video", "CreateVideo")
+    @Html.ActionLink("Create New", "Create") | <input type="button" value="Confirmar Cambios" onclick="location.href='@Url.Action("ReloadTable", "Persona")'" />
+
 </p>
 <table class="table">
     <tr>
@@ -30,23 +31,23 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nbrPersona)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idPersona)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.correo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idPaisNacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idPaisResidencia)
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nbrPersona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idPersona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idPaisNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idPaisResidencia)
+            </td>
+        </tr>
     }
 
 </table>

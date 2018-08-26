@@ -14,6 +14,12 @@ namespace appRegistroCivil.Models
     
     public partial class Persona
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Persona()
+        {
+            this.Pais2 = new HashSet<Pais>();
+        }
+    
         public decimal idPersona { get; set; }
         public string nbrPersona { get; set; }
         public decimal idPaisNacimiento { get; set; }
@@ -27,5 +33,7 @@ namespace appRegistroCivil.Models
         public virtual Pais Pais { get; set; }
         public virtual Pais Pais1 { get; set; }
         public virtual Videos Videos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pais> Pais2 { get; set; }
     }
 }

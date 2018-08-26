@@ -35,9 +35,9 @@ namespace appRegistroCivil.Models
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Videos> Videos { get; set; }
     
-        public virtual ObjectResult<SP_EdadPromedio_Result> SP_EdadPromedio()
+        public virtual ObjectResult<SP_EdadPromedio1_Result> SP_EdadPromedio()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EdadPromedio_Result>("SP_EdadPromedio");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EdadPromedio1_Result>("SP_EdadPromedio");
         }
     
         public virtual int SP_GenerarPersonas(Nullable<int> cantidadPaises, Nullable<int> personasxPais)
@@ -56,6 +56,11 @@ namespace appRegistroCivil.Models
         public virtual ObjectResult<SP_Nacimientos_Result> SP_Nacimientos()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Nacimientos_Result>("SP_Nacimientos");
+        }
+    
+        public virtual ObjectResult<SP_EdadPromedio1_Result> SP_EdadPromedio1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EdadPromedio1_Result>("SP_EdadPromedio1");
         }
     }
 }

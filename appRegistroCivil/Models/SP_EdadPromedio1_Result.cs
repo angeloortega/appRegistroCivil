@@ -11,11 +11,11 @@ namespace appRegistroCivil.Models
 {
     using System;
     
-    public partial class SP_EdadPromedio_Result
+    public partial class SP_EdadPromedio1_Result
     {
         public decimal idPais { get; set; }
         public string nbrPais { get; set; }
         public Nullable<decimal> edadPromedio { get; set; }
-        public decimal poblacionActual { get; set; }
+        public Nullable<int> PoblacionActual { get; set; }
     }
 }

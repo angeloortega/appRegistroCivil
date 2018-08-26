@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RegistroCivilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RegistroCivilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="apellidos">
           <Key>
             <PropertyRef Name="apellido" />
@@ -91,6 +91,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="pais_fk3">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Pais" Type="Self.Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="idPersona" />
+              <PropertyRef Name="idPaisResidencia" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="idPresidenteActual" />
+              <PropertyRef Name="idPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="persona_FK1">
           <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
           <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
@@ -161,6 +175,10 @@
             <End Role="Audios" EntitySet="Audios" />
             <End Role="Pais" EntitySet="Pais" />
           </AssociationSet>
+          <AssociationSet Name="pais_fk3" Association="Self.pais_fk3">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
           <AssociationSet Name="persona_FK1" Association="Self.persona_FK1">
             <End Role="Pais" EntitySet="Pais" />
             <End Role="Persona" EntitySet="Persona" />
@@ -178,8 +196,7 @@
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RegistroCivilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -229,6 +246,7 @@
           <NavigationProperty Name="Imagenes" Relationship="Self.pais_FK1" FromRole="Pais" ToRole="Imagenes" />
           <NavigationProperty Name="Persona" Relationship="Self.persona_FK1" FromRole="Pais" ToRole="Persona" />
           <NavigationProperty Name="Persona1" Relationship="Self.persona_FK2" FromRole="Pais" ToRole="Persona" />
+          <NavigationProperty Name="Persona2" Relationship="RegistroCivilModel.pais_fk3" FromRole="Pais" ToRole="Persona" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -247,6 +265,7 @@
           <NavigationProperty Name="Pais" Relationship="Self.persona_FK1" FromRole="Persona" ToRole="Pais" />
           <NavigationProperty Name="Pais1" Relationship="Self.persona_FK2" FromRole="Persona" ToRole="Pais" />
           <NavigationProperty Name="Videos" Relationship="Self.persona_FK3" FromRole="Persona" ToRole="Videos" />
+          <NavigationProperty Name="Pais2" Relationship="RegistroCivilModel.pais_fk3" FromRole="Persona" ToRole="Pais" />
         </EntityType>
         <EntityType Name="Videos">
           <Key>
@@ -367,6 +386,11 @@
             <Parameter Name="personasxPais" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_Nacimientos" ReturnType="Collection(RegistroCivilModel.SP_Nacimientos_Result)" />
+          <AssociationSet Name="pais_fk3" Association="RegistroCivilModel.pais_fk3">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
+          <FunctionImport Name="SP_EdadPromedio1" ReturnType="Collection(RegistroCivilModel.SP_EdadPromedio1_Result)" />
         </EntityContainer>
         <ComplexType Name="SP_EdadPromedio_Result">
           <Property Type="Decimal" Name="idPais" Nullable="false" Precision="3" Scale="0" />
@@ -378,6 +402,26 @@
           <Property Type="Decimal" Name="idPais" Nullable="true" Precision="3" Scale="0" />
           <Property Type="Int32" Name="anhoNacimiento" Nullable="true" />
           <Property Type="Int32" Name="totalDePersonas" Nullable="true" />
+        </ComplexType>
+        <Association Name="pais_fk3">
+          <End Type="RegistroCivilModel.Persona" Role="Persona" Multiplicity="0..1" />
+          <End Type="RegistroCivilModel.Pais" Role="Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="idPersona" />
+              <PropertyRef Name="idPaisResidencia" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="idPresidenteActual" />
+              <PropertyRef Name="idPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="SP_EdadPromedio1_Result">
+          <Property Type="Decimal" Name="idPais" Nullable="false" Precision="3" Scale="0" />
+          <Property Type="String" Name="nbrPais" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="edadPromedio" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Int32" Name="PoblacionActual" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -453,16 +497,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_EdadPromedio" FunctionName="RegistroCivilModel.Store.SP_EdadPromedio">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="RegistroCivilModel.SP_EdadPromedio_Result">
-                <ScalarProperty Name="idPais" ColumnName="idPais" />
-                <ScalarProperty Name="nbrPais" ColumnName="nbrPais" />
-                <ScalarProperty Name="edadPromedio" ColumnName="edadPromedio" />
-                <ScalarProperty Name="poblacionActual" ColumnName="poblacionActual" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_GenerarPersonas" FunctionName="RegistroCivilModel.Store.SP_GenerarPersonas" />
           <FunctionImportMapping FunctionImportName="SP_Nacimientos" FunctionName="RegistroCivilModel.Store.SP_Nacimientos">
             <ResultMapping>
@@ -470,6 +504,16 @@
                 <ScalarProperty Name="idPais" ColumnName="idPais" />
                 <ScalarProperty Name="anhoNacimiento" ColumnName="anhoNacimiento" />
                 <ScalarProperty Name="totalDePersonas" ColumnName="totalDePersonas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_EdadPromedio1" FunctionName="RegistroCivilModel.Store.SP_EdadPromedio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RegistroCivilModel.SP_EdadPromedio1_Result">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="nbrPais" ColumnName="nbrPais" />
+                <ScalarProperty Name="edadPromedio" ColumnName="edadPromedio" />
+                <ScalarProperty Name="PoblacionActual" ColumnName="PoblacionActual" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

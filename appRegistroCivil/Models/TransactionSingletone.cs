@@ -34,8 +34,18 @@ namespace appRegistroCivil.Models
                 db.Persona.Add(person);
             }
             public static void SendCommit() {
+
+            try
+            {
                 db.SaveChanges();
                 Transaction.Commit();
+            }
+            catch
+            {
+            }
+            finally {
+                ResetInstance();
+            }
             }
             public static void ResetInstance()
             {

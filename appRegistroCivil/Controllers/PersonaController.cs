@@ -79,11 +79,10 @@ namespace appRegistroCivil.Controllers
             return View(jugador);
         }
 
-        /*
+  
         // GET: Jugadors/Create
         public ActionResult Create()
         {
-            ViewBag.codigoFuncionario = new SelectList(db.Persona, "id", "idClub");
 
             return View();
         }
@@ -93,19 +92,29 @@ namespace appRegistroCivil.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigoFuncionario,Peso,Altura,nroCamiseta,usuarioCreacion,usuarioModificacion,fchCreacion,fchModificacion")] Jugador jugador)
+        public ActionResult Create([Bind(Include = "idPersona,nbrPersona,idPaisNacimiento,idPaisResidencia,fchNacimiento,correo,foto,video")] Persona persona)
         {
             if (ModelState.IsValid)
             {
-                db.Jugador.Add(jugador);
-                db.SaveChanges();
+                TransactionSingletone.UploadPerson(persona);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.codigoFuncionario = new SelectList(db.Funcionario, "codigoFuncionario", "nombre", jugador.codigoFuncionario);
-            return View(jugador);
+            return View(persona);
         }
 
+
+        // GET: Jugadors/Create
+        public ActionResult ReloadTable()
+        {
+            TransactionSingletone.SendCommit();
+            db = TransactionSingletone.db;
+            var person = from m in db.Persona
+                         select m;
+            return RedirectToAction("Index");
+        }
+
+        /*
         // GET: Jugadors/Edit/5
         public ActionResult Edit(decimal id)
         {
