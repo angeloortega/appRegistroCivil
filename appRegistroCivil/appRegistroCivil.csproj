@@ -188,7 +188,7 @@
     <Compile Include="Models\Pais.cs">
       <DependentUpon>modeloRegistro.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PaisController.cs" />
+    <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Models\Persona.cs">
       <DependentUpon>modeloRegistro.tt</DependentUpon>
     </Compile>
@@ -311,6 +311,7 @@
     <Content Include="Views\Pais\Edit.cshtml" />
     <Content Include="Views\Pais\Index.cshtml" />
     <Content Include="Views\Pais\personasPartial.cshtml" />
+    <Content Include="Views\Pais\PaisList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

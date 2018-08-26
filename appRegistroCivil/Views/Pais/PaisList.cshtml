@@ -1,12 +1,8 @@
 ﻿@model appRegistroCivil.Models.PaisController.PagedData<appRegistroCivil.Models.Pais>
 
-@{
-    ViewBag.Title = "Index";
-}
-
 <script type="text/javascript">
     $().ready(function () {
-        $(".page-number").live("click", function () {
+        $(".page-number").click(function() {
 
             var page = parseInt($(this).html());
 
@@ -20,13 +16,6 @@
         });
     });
 </script>
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 
 <table>
     <thead>
@@ -63,12 +52,26 @@
             <td colspan="3">
                 @for (int i = 1; i <= Model.NumberOfPages; i++)
                 {
-                    <a class="page-number" href="#">@i</a>
+                    <a class="page-number" href="javascript:void();">@i</a>
                 }
             </td>
         </tr>
     </tfoot>
 </table>
 
+<script type="text/javascript">
+    $().ready(function () {
+        $(".page-number").click(function() {
 
+            var page = parseInt($(this).html());
 
+            $.ajax({
+                url: '@Url.Action("PaisList")',
+                data: { "page": page },
+                success: function (data) {
+                    $("#person-list").html(data);
+                }
+            });
+        });
+    });
+</script>

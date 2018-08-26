@@ -6,6 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using System.Web.Services.Protocols;
+
 
 namespace appRegistroCivil.Models
 {
@@ -14,11 +17,11 @@ namespace appRegistroCivil.Models
         private RegistroCivilEntities db = new RegistroCivilEntities();
 
         // GET: Pais
-        public ActionResult Index()
-        {
-            var pais = db.Pais.Include(p => p.Audios).Include(p => p.Imagenes);
-            return View(pais.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    var pais = db.Pais.Include(p => p.Audios).Include(p => p.Imagenes);
+        //    return View(pais.ToList());
+        //}
 
         // GET: Pais/Details/5
         public ActionResult Details(decimal id)
@@ -33,6 +36,44 @@ namespace appRegistroCivil.Models
                 return HttpNotFound();
             }
             return View(pais);
+        }
+
+        public class PagedData<T> where T : class
+        {
+            public IEnumerable<T> Data { get; set; }
+            public int NumberOfPages { get; set; }
+            public int CurrentPage { get; set; }
+        }
+
+        public const int PageSize = 5;
+
+        public ActionResult Index()
+        {
+            var pais = new PagedData<Pais>();
+
+            using (var ctx = new RegistroCivilEntities())
+            {
+                pais.Data = ctx.Pais.OrderBy(p => p.nbrPais).Take(PageSize).ToList();
+                pais.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)ctx.Pais.Count() / PageSize));
+            }
+
+            return View(pais);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PaisList(int page) { 
+        
+            var pais = new PagedData<Pais>();
+            Console.WriteLine("El numero de pagina es: " + page);
+            using (var ctx = new RegistroCivilEntities())
+            {
+                pais.Data = ctx.Pais.OrderBy(p => p.nbrPais).Skip(PageSize * (page - 1)).Skip(PageSize).ToList();
+                pais.NumberOfPages = Convert.ToInt32(Math.Ceiling((double)ctx.Pais.Count() / PageSize));
+                pais.CurrentPage = page;
+            }
+
+            return PartialView(pais);
         }
 
         // GET: Pais/Create

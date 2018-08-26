@@ -53,6 +53,8 @@ namespace appRegistroCivil.Controllers
             return View(person);
         }
 
+        
+
         public ViewResult Paises()
         {
             db = TransactionSingletone.db;
