@@ -33,33 +33,42 @@
             <th></th>
         </tr>
 
-            <tr>
-                <td>
-                    @ViewBag.nombrePais
-                </td>
-                <td>
-                    @ViewBag.area
-                </td>
-                <td>
-                    @ViewBag.pobActual
-                </td>
-                <td>
-                    @ViewBag.idPresi
-                </td>
-                <td>
-                    @ViewBag.audios
-                </td>
-                <td>
-                    @ViewBag.foto
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @ViewBag.nombrePais
+            </td>
+            <td>
+                @ViewBag.area
+            </td>
+            <td>
+                @ViewBag.pobActual
+            </td>
+            <td>
+                @ViewBag.idPresi
+            </td>
+            <td>
+                @ViewBag.audios
+            </td>
+            <td>
+                @ViewBag.foto
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
     </table>
 </div>
+<ul class="pagination">
+    <li><span>Pagina Actual: @ViewBag.idPais</span></li>
+    <li> @Html.ActionLink("Primero", "PaisIndex", new { id = 1 }) </li>
+    <li> @Html.ActionLink("Anterior", "PaisIndex", new { id = ViewBag.idPais - 1 }) </li>
+    <li> @Html.ActionLink("pag. 50", "PaisIndex", new { id = 50 }) </li>
+    <li>@Html.ActionLink("Siguiente", "PaisIndex", new { id = (ViewBag.idPais < ViewBag.totalPaises) ? (ViewBag.idPais + 1) : 1 }) </li>
+    <li>@Html.ActionLink("Ultimo", "PaisIndex", new { id = @ViewBag.totalPaises}) </li>
+</ul>
+
 
 <div id="ListaPersonas">
     @Html.Partial("personPartial", Model)

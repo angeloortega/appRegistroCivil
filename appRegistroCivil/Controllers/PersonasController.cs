@@ -18,10 +18,11 @@ namespace appRegistroCivil.Views
         public ActionResult Index()
         {
             //id = 1;
-            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos);
+            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p => p.idPaisResidencia == 1);
             ViewBag.totalPaises = db.Pais.Count();
             Pais pais = db.Pais.First();
             //Pais pais = db.Pais.Where(x=>x.idPais == id).First();
+            ViewBag.idPais = pais.idPais;
             ViewBag.nombrePais = pais.nbrPais;
             ViewBag.area = pais.area;
             ViewBag.pobActual = pais.poblacionActual;
@@ -29,6 +30,29 @@ namespace appRegistroCivil.Views
             ViewBag.audios = pais.himnoNacional;
             ViewBag.foto = pais.fotoBandera;
             return View(persona.ToList());
+        }
+
+        public ActionResult PaisIndex(int id)
+        {
+            if (id < 1)
+            {
+                id = 1;
+            }
+            if (id > db.Pais.Count())
+            {
+                id = 1;
+            }
+            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p=> p.idPaisResidencia == id);
+            Pais pais = db.Pais.Where(x=>x.idPais == id).First();
+            ViewBag.totalPaises = db.Pais.Count();
+            ViewBag.nombrePais = pais.nbrPais;
+            ViewBag.area = pais.area;
+            ViewBag.pobActual = pais.poblacionActual;
+            ViewBag.idPresi = pais.idPresidenteActual;
+            ViewBag.audios = pais.himnoNacional;
+            ViewBag.foto = pais.fotoBandera;
+            ViewBag.idPais = pais.idPais;
+            return View("Index", persona.ToList());
         }
 
         public ActionResult ListaPersonas()
