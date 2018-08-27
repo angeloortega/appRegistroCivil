@@ -13,7 +13,7 @@ namespace appRegistroCivil.Views
     public class PersonasController : Controller
     {
         private TransactionSingletone singletone = TransactionSingletone.Instance();
-        private RegistroCivilEntities db;
+        private static RegistroCivilEntities db;
         // GET: Personas
         public ActionResult Index()
         {
@@ -44,6 +44,7 @@ namespace appRegistroCivil.Views
 
         public ActionResult PaisIndex(int id)
         {
+           // TransactionSingletone.reloadDBContext();
             db = TransactionSingletone.db;
             int cantidadPaises = db.Pais.Count();
             if (id < 1)
@@ -107,8 +108,7 @@ namespace appRegistroCivil.Views
         {
             if (ModelState.IsValid)
             {
-                db.Persona.Add(persona);
-                db.SaveChanges();
+                TransactionSingletone.UploadPerson(persona);
                 return RedirectToAction("Index");
             }
 
@@ -182,15 +182,6 @@ namespace appRegistroCivil.Views
             db.Persona.Remove(persona);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
