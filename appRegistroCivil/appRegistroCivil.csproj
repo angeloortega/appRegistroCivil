@@ -165,7 +165,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\PaisController.cs" />
-    <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,7 +212,6 @@
       <DependentUpon>modeloRegistro.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,7 +324,6 @@
     <Content Include="Views\Personas\Edit.cshtml" />
     <Content Include="Views\Personas\Index.cshtml" />
     <Content Include="Views\Personas\personPartial.cshtml" />
-    <Content Include="Views\Persona\create.cshtml" />
     <Content Include="Views\Pais\EdadPromedio.cshtml" />
     <Content Include="Views\Pais\EstadisticaNacimiento.cshtml" />
   </ItemGroup>

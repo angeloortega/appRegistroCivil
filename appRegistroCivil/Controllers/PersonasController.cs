@@ -12,11 +12,12 @@ namespace appRegistroCivil.Views
 {
     public class PersonasController : Controller
     {
-        private RegistroCivilEntities db = new RegistroCivilEntities();
-
+        private TransactionSingletone singletone = TransactionSingletone.Instance();
+        private RegistroCivilEntities db;
         // GET: Personas
         public ActionResult Index()
         {
+            db = TransactionSingletone.db;
             //id = 1;
             var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p => p.idPaisResidencia == 1);
             ViewBag.totalPaises = db.Pais.Count();
@@ -32,8 +33,19 @@ namespace appRegistroCivil.Views
             return View(persona.ToList());
         }
 
+        public ActionResult ReloadTable()
+        {
+            TransactionSingletone.SendCommit();
+            db = TransactionSingletone.db;
+            var person = from m in db.Persona
+                         select m;
+            return RedirectToAction("Index");
+        }
+
         public ActionResult PaisIndex(int id)
         {
+            db = TransactionSingletone.db;
+            int cantidadPaises = db.Pais.Count();
             if (id < 1)
             {
                 id = 1;

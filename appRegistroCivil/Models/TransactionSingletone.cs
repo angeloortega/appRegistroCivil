@@ -26,6 +26,7 @@ namespace appRegistroCivil.Models
             private TransactionSingletone()
             {
                 db = new RegistroCivilEntities();
+                db.Configuration.LazyLoadingEnabled = false;
                 Transaction = db.Database.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
             }

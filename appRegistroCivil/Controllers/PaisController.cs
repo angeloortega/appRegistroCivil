@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using appRegistroCivil.Models;
+using System.Data.SqlClient;
 
 namespace appRegistroCivil.Views
 {
@@ -134,13 +135,7 @@ namespace appRegistroCivil.Views
         }
     }
 }
-using appRegistroCivil.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+
 
 namespace appRegistroCivil.Controllers
 {
