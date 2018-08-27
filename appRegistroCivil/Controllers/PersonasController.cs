@@ -75,13 +75,13 @@ namespace appRegistroCivil.Views
         }
 
         // GET: Personas/Details/5
-        public ActionResult Details(decimal id)
+        public ActionResult Details(decimal id, decimal id2)
         {
-            if (id == null)
+            if (id == null || id2 == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Persona persona = db.Persona.Find(id);
+            Persona persona = db.Persona.Find(id,id2);
             if (persona == null)
             {
                 return HttpNotFound();
@@ -119,14 +119,41 @@ namespace appRegistroCivil.Views
             return View(persona);
         }
 
-        // GET: Personas/Edit/5
-        public ActionResult Edit(decimal id)
+        // GET: Pais/Create
+        public ActionResult CreatePais()
         {
-            if (id == null)
+            ViewBag.himnoNacional = new SelectList(db.Audios, "id", "descripcion");
+            ViewBag.fotoBandera = new SelectList(db.Imagenes, "id", "descripcion");
+            return View();
+        }
+
+        // POST: Pais/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePais([Bind(Include = "idPais,nbrPais,area,poblacionActual,fotoBandera,himnoNacional,idPresidenteActual")] Pais pais)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Pais.Add(pais);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.himnoNacional = new SelectList(db.Audios, "id", "descripcion", pais.himnoNacional);
+            ViewBag.fotoBandera = new SelectList(db.Imagenes, "id", "descripcion", pais.fotoBandera);
+            return View(pais);
+        }
+
+        // GET: Personas/Edit/5
+        public ActionResult Edit(decimal id, decimal id2)
+        {
+            if (id == null || id2 == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Persona persona = db.Persona.Find(id);
+            Persona persona = db.Persona.Find(id,id2);
             if (persona == null)
             {
                 return HttpNotFound();

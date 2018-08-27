@@ -313,7 +313,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Pais\Create.cshtml" />
+    <Content Include="Views\Personas\CreatePais.cshtml" />
     <Content Include="Views\Pais\Delete.cshtml" />
     <Content Include="Views\Pais\Details.cshtml" />
     <Content Include="Views\Pais\Edit.cshtml" />
