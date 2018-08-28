@@ -163,21 +163,6 @@ namespace appRegistroCivil.Views
             return View(persona);
         }
 
-        // GET: Pais/Details/5
-        public ActionResult DetailsPais(decimal id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pais pais = db.Pais.Find(id);
-            if (pais == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pais);
-        }
-
         // GET: Personas/Create
         public ActionResult Create()
         {

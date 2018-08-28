@@ -315,7 +315,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Personas\CreatePais.cshtml" />
     <Content Include="Views\Personas\DeletePais.cshtml" />
-    <Content Include="Views\Personas\DetailsPais.cshtml" />
     <Content Include="Views\Personas\EditPais.cshtml" />
     <Content Include="Views\Pais\Index.cshtml" />
     <Content Include="Views\Personas\Create.cshtml" />
