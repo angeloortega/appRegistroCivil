@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            Area
+            Area total
         </dt>
 
         <dd>
@@ -35,11 +35,11 @@
         </dd>
 
         <dt>
-            Id Presidente Actual
+            Presidente Actual
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.idPresidenteActual)
+            @Html.DisplayName(Model.Persona2.nbrPersona)
         </dd>
 
         <dt>
@@ -47,7 +47,9 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Audios.descripcion)
+            <audio controls>
+                <source src="data:image;base64,@System.Convert.ToBase64String(ViewBag.himno)" type="audio/mp3" />
+            </audio>
         </dd>
 
         <dt>
