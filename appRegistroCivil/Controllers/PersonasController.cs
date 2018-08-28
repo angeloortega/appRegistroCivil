@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Data.SqlClient;
 using System.IO.Pipes;
+using System.Web.Hosting;
 
 namespace appRegistroCivil.Views
 {
@@ -57,6 +58,46 @@ namespace appRegistroCivil.Views
             db = TransactionSingletone.db;
             return RedirectToAction("Index");
         }
+
+        public ActionResult CargarMediaDePrueba() {
+            TransactionSingletone.stopTransaction();
+            db = new RegistroCivilEntities();
+            Videos video = db.Videos.Find(1);
+            Imagenes imagen1 = db.Imagenes.Find(1);
+            Imagenes imagen2 = db.Imagenes.Find(2);
+            Audios audio = db.Audios.Find(1);
+            byte[] videoByte = System.IO.File.ReadAllBytes(HostingEnvironment.ApplicationPhysicalPath +"\\Resources\\video.mp4");
+            byte[] imagen1Byte = System.IO.File.ReadAllBytes(HostingEnvironment.ApplicationPhysicalPath + "\\Resources\\BanderaDefault.jpeg");
+            byte[] imagen2Byte = System.IO.File.ReadAllBytes(HostingEnvironment.ApplicationPhysicalPath + "\\Resources\\PersonaDefault.jpeg");
+            byte[] audioByte = System.IO.File.ReadAllBytes(HostingEnvironment.ApplicationPhysicalPath + "\\Resources\\himno.mp3");
+            video.descripcion = "Default Interview";
+            video.info_bytes = videoByte;
+            imagen1.descripcion = "Bandera Default Pais";
+            imagen1.info_bytes = imagen1Byte;
+            imagen2.descripcion = "Foto de Perfil Default";
+            imagen2.info_bytes = imagen2Byte;
+            audio.descripcion = "Audio Default";
+            audio.info_bytes = audioByte;
+            try
+            {
+
+                
+                //db.Videos.Attach(video);
+                //db.Imagenes.Attach(imagen1);
+                //db.Imagenes.Attach(imagen2);
+                //db.Audios.Attach(audio);
+                db.Entry(video).State = EntityState.Modified;
+                db.Entry(imagen1).State = EntityState.Modified;
+                db.Entry(imagen2).State = EntityState.Modified;
+                db.Entry(audio).State = EntityState.Modified;
+                db.SaveChanges();
+                TransactionSingletone.ResetInstance();
+                db = TransactionSingletone.db;
+            }
+            catch(Exception e) {}
+                return RedirectToAction("Index");
+        }
+
         public ActionResult PaisIndex(int id)
         {
            // TransactionSingletone.reloadDBContext();
