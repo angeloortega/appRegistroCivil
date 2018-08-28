@@ -5,7 +5,6 @@
 }
 
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "CreatePais") | <input type="button" value="Confirmar Cambios" onclick="location.href='@Url.Action("ReloadTable", "Personas")'" />
 </p>
@@ -23,15 +22,14 @@
                 Poblacion Actual
             </th>
             <th>
-                Id Presidente Actual
+                Presidente Actual
             </th>
             <th>
-                Audios
+                Bandera
             </th>
             <th>
-                Imagenes
+                Himno
             </th>
-            <th></th>
         </tr>
 
         <tr>
@@ -42,19 +40,21 @@
                 @ViewBag.area
             </td>
             <td>
-                @ViewBag.pobActual
+                @ViewBag.poblacion
             </td>
             <td>
-                @ViewBag.idPresi
+                @ViewBag.nombrePresi
             </td>
             <td>
-                @ViewBag.audios
+                <img src="data:image;base64,@System.Convert.ToBase64String(ViewBag.foto)" width="50" height="50" />
             </td>
             <td>
-                @ViewBag.foto
+                <audio controls>
+                    <source src="data:image;base64,@System.Convert.ToBase64String(ViewBag.himno)" type="audio/mp3" />
+                </audio>
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit ", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
@@ -67,7 +67,7 @@
     <li> @Html.ActionLink("Anterior", "PaisIndex", new { id = ViewBag.idPais - 1 }) </li>
     <li> @Html.ActionLink("pag. 50", "PaisIndex", new { id = 50 }) </li>
     <li>@Html.ActionLink("Siguiente", "PaisIndex", new { id = (ViewBag.idPais < ViewBag.totalPaises) ? (ViewBag.idPais + 1) : 1 }) </li>
-    <li>@Html.ActionLink("Ultimo", "PaisIndex", new { id = @ViewBag.totalPaises}) </li>
+    <li>@Html.ActionLink("Ultimo", "PaisIndex", new { id = @ViewBag.totalPaises }) </li>
 </ul>
 
 

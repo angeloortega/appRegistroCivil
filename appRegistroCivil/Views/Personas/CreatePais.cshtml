@@ -4,12 +4,46 @@
     ViewBag.Title = "Create";
 }
 
+@section styles{
+    <style>
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-ImagePath {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgFunc')
+                        .attr('src', e.target.result)
+                        .height(75);
+                };
+                reader.readAsDataURL(input.files[0]);
+
+            }
+        }
+    </script>
+}
+
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreatePais", "Personas", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Pais</h4>
         <hr />
@@ -43,19 +77,18 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Foto Bandera", "fotoBandera", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("fotoBandera", null, htmlAttributes: new { @class = "form-control" })
-            </div>
+            @Html.Label("Foto de Bandera", htmlAttributes: new { @class = "control-label col-md-2" })
+            <img src="data:image;base64,@System.Convert.ToBase64String(ViewBag.fotoBandera)" width="80" height="80" />
+            <label for="ImagePath" class="custom-ImagePath">
+                <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
+            </label>
+            <input id="ImagePath" type="file" name="file" onchange="readURL(this);" style="display:none;" accept=".jpg, .jpeg, .png" />
         </div>
 
         <div class="form-group">
             @Html.Label("Himno Nacional", "himnoNacional", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("himnoNacional", null, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
 
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
