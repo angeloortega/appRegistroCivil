@@ -159,7 +159,7 @@ namespace appRegistroCivil.Views
             {
                 return HttpNotFound();
             }
-            ViewBag.video = db.Videos.Where(x => x.id == persona.videoEntrevista).First().info_bytes;
+            ViewBag.video = db.Videos.Where(x => x.id == 1).First().info_bytes;
             return View(persona);
         }
 
@@ -181,10 +181,10 @@ namespace appRegistroCivil.Views
         // GET: Personas/Create
         public ActionResult Create()
         {
-            ViewBag.foto = new SelectList(db.Imagenes, "id", "descripcion");
+            ViewBag.foto = db.Imagenes.Where(x => x.id == 0).First().info_bytes;
             ViewBag.idPaisNacimiento = new SelectList(db.Pais, "idPais", "nbrPais");
             ViewBag.idPaisResidencia = new SelectList(db.Pais, "idPais", "nbrPais");
-            ViewBag.videoEntrevista = new SelectList(db.Videos, "id", "descripcion");
+            ViewBag.videoEntrevista = db.Videos.Where(x => x.id == 1).First().info_bytes;
             return View();
         }
 
@@ -193,10 +193,30 @@ namespace appRegistroCivil.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idPersona,nbrPersona,idPaisNacimiento,idPaisResidencia,fchNacimiento,correo,foto,videoEntrevista")] Persona persona)
+        public ActionResult Create([Bind(Include = "idPersona,nbrPersona,idPaisNacimiento,idPaisResidencia,fchNacimiento,correo,foto,videoEntrevista")] Persona persona, HttpPostedFileBase file, HttpPostedFileBase fileVid)
         {
+            persona.idPersona = db.Pais.Where(x => x.idPais == persona.idPaisResidencia).First().Persona.Count() + 1;
+            
+            Image convert = Image.FromStream(file.InputStream);
+            Image convertVid = Image.FromStream(fileVid.InputStream);
+            ImageConverter _imageConverter = new ImageConverter();
+            byte[] xByte = (byte[])_imageConverter.ConvertTo(convert, typeof(byte[]));
+            byte[] xByteVid = (byte[])_imageConverter.ConvertTo(convertVid, typeof(byte[]));
+            Imagenes imageI = new Imagenes();
+            Videos video = new Videos();
+            //byte[] xByteVid = (byte[])_imageConverter.ConvertTo(convert, typeof(byte[]));
+            video.descripcion = "Entrevista " + persona.nbrPersona + "";
+            video.id = db.Videos.Count()+1;
+            video.info_bytes = xByteVid;
+            imageI.id = db.Imagenes.Count();
+            imageI.descripcion = "" + persona.nbrPersona + "";
+            imageI.info_bytes = xByte;
+            persona.foto = imageI.id;
+            persona.videoEntrevista = video.id;
             if (ModelState.IsValid)
             {
+                db.Imagenes.Add(imageI);
+                db.Videos.Add(video);
                 TransactionSingletone.UploadPerson(persona);
                 return RedirectToAction("Index");
             }
@@ -204,7 +224,7 @@ namespace appRegistroCivil.Views
             ViewBag.foto = new SelectList(db.Imagenes, "id", "descripcion", persona.foto);
             ViewBag.idPaisNacimiento = new SelectList(db.Pais, "idPais", "nbrPais", persona.idPaisNacimiento);
             ViewBag.idPaisResidencia = new SelectList(db.Pais, "idPais", "nbrPais", persona.idPaisResidencia);
-            ViewBag.videoEntrevista = new SelectList(db.Videos, "id", "descripcion", persona.videoEntrevista);
+            ViewBag.videoEntrevista = db.Videos.Where(x => x.id == 1).First().info_bytes;
             return View(persona);
         }
 
@@ -213,7 +233,7 @@ namespace appRegistroCivil.Views
         {
             
             db = TransactionSingletone.db;
-            ViewBag.fotoBandera = db.Imagenes.Where(x => x.id == 0).First().info_bytes;
+            ViewBag.fotoBandera = db.Imagenes.Where(x => x.id == 1).First().info_bytes;
             //ViewBag.himno = new SelectList(db.Audios, "id", "descripcion");
             //ViewBag.fotoBandera = db.Imagenes.Where(x => x.id == 0);
             return View();
@@ -226,21 +246,19 @@ namespace appRegistroCivil.Views
         [ValidateAntiForgeryToken]
         public ActionResult CreatePais([Bind(Include = "idPais,nbrPais,area,poblacionActual,fotoBandera,himnoNacional,idPresidenteActual")] Pais pais, HttpPostedFileBase file)
         {
-            //Image convert = Image.FromFile("C:\\Users\\Giulliano\\Desktop\\himno.mp4");
-            //ImageConverter _imageConverter = new ImageConverter();
-            //byte[] xByte = (byte[])_imageConverter.ConvertTo(convert, typeof(byte[]));
-            Videos imageI = new Videos();
-            byte[] audiobyte = System.IO.File.ReadAllBytes("C:\\Users\\Giulliano\\Desktop\\interview.mp4");
-            //imageI.id = db.Imagenes.Count();
-            imageI.id = 2;
-            //imageI.descripcion = ""+ pais.nbrPais + "";
-            imageI.descripcion = "Default Interview";
-            imageI.info_bytes = audiobyte;
+            Image convert = Image.FromStream(file.InputStream);
+            ImageConverter _imageConverter = new ImageConverter();
+            byte[] xByte = (byte[])_imageConverter.ConvertTo(convert, typeof(byte[]));
+            Imagenes imageI = new Imagenes();
+            //byte[] audiobyte = System.IO.File.ReadAllBytes("C:\\Users\\Giulliano\\Desktop\\interview.mp4");
+            imageI.id = db.Imagenes.Count();
+            imageI.descripcion = ""+ pais.nbrPais + "";
+            imageI.info_bytes = xByte;
             pais.fotoBandera = imageI.id;
             try
             {
-                db.Videos.Add(imageI);
-                //db.Pais.Add(pais);
+                db.Imagenes.Add(imageI);
+                db.Pais.Add(pais);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

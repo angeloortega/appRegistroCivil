@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
+            @Html.DisplayName("Foto")
         </dt>
 
         <dd>
@@ -62,7 +62,8 @@
         </dt>
         <dd>
             <video controls>
-                <source src="data:image;base64,@System.Convert.ToBase64String(ViewBag.video)" type="video/mp4">
+                <source src="data:image;base64,@System.Convert.ToBase64String(ViewBag.video)" type="video/mp4" />
+                Your browser does not support the video tag.
             </video>
         </dd>
     </dl>
