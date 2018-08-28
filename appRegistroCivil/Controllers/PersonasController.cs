@@ -23,7 +23,8 @@ namespace appRegistroCivil.Views
         public ActionResult Index()
         {
             db = TransactionSingletone.db;
-            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p => p.idPaisResidencia == 1);
+            decimal firstid = db.Pais.First().idPais;
+            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Where(p => p.idPaisResidencia == firstid);
             ViewBag.totalPaises = db.Pais.Count();
             Pais pais = db.Pais.First();
             ViewBag.idPais = pais.idPais;
@@ -66,7 +67,7 @@ namespace appRegistroCivil.Views
                 id = 1;
             }
             Pais pais = new Pais();
-            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p=> p.idPaisResidencia == id);
+            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Where(p=> p.idPaisResidencia == id);
             
             if (db.Pais.Where(x => x.idPais == id).Count() > 0)
             {
@@ -113,6 +114,7 @@ namespace appRegistroCivil.Views
             {
                 return HttpNotFound();
             }
+            ViewBag.video = db.Videos.Where(x => x.id == persona.videoEntrevista).First().info_bytes;
             return View(persona);
         }
 

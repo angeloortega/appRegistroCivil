@@ -11,6 +11,13 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
+        </dt>
+
+        <dd>
+            <img src="data:image;base64,@System.Convert.ToBase64String(Model.Imagenes.info_bytes)" width="70" height="70" />
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.nbrPersona)
         </dt>
 
@@ -35,14 +42,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Imagenes.descripcion)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Pais.nbrPais)
         </dt>
 
@@ -59,13 +58,13 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Videos.descripcion)
+            @Html.DisplayName("Video de Entrevista")
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Videos.descripcion)
+            <video controls>
+                <source src="data:image;base64,@System.Convert.ToBase64String(ViewBag.video)" type="video/mp4">
+            </video>
         </dd>
-
     </dl>
 </div>
 <p>
