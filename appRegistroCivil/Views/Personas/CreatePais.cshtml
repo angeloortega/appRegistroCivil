@@ -35,6 +35,19 @@
 
             }
         }
+        function readURLAud(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#audFunc')
+                        .attr('src', e.target.result)
+                        .height(75);
+                };
+                reader.readAsDataURL(input.files[0]);
+
+            }
+        }
     </script>
 }
 
@@ -48,12 +61,6 @@
         <h4>Pais</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("Id Pais", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.Editor("idPais", new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.Label("Nombre Pais", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -78,7 +85,7 @@
 
         <div class="form-group">
             @Html.Label("Foto de Bandera", htmlAttributes: new { @class = "control-label col-md-2" })
-            <img src="data:image;base64,@System.Convert.ToBase64String(ViewBag.fotoBandera)" width="80" height="80" />
+            <img id="imgFunc" src="data:image;base64,@System.Convert.ToBase64String(ViewBag.fotoBandera)" width="80" height="80" />
             <label for="ImagePath" class="custom-ImagePath">
                 <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
             </label>
@@ -87,7 +94,14 @@
 
         <div class="form-group">
             @Html.Label("Himno Nacional", "himnoNacional", htmlAttributes: new { @class = "control-label col-md-2" })
-
+            <audio id="audFunc" controls>
+                <source src="@Url.Content("~/Resources/default.mp3")" type="audio/mp3">
+                Your browser does not support the video tag.
+            </audio>
+            <label for="AudioPath" class="custom-ImagePath">
+                <i class="fa fa-cloud-upload"></i> Seleccionar Video
+            </label>
+            <input id="AudioPath" type="file" name="fileAud" onchange="readURLAud(this);" style="display:none;" accept=".mp3" />
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
