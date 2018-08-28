@@ -6,7 +6,7 @@
 
 <h2>Index</h2>
 <p>
-    @Html.ActionLink("Create New", "CreatePais") | <input type="button" value="Confirmar Cambios" onclick="location.href='@Url.Action("ReloadTable", "Personas")'" />
+    @Html.ActionLink("Create New", "CreatePais") | <input type="button" value="Confirmar Cambios" onclick="location.href='@Url.Action("ReloadTable", "Personas")'"/> | <input type="button" value="Revertir Cambios" onclick="location.href='@Url.Action("CancelTransaction", "Personas")'" />
 </p>
 
 <div style="height: 100px; overflow: auto;">

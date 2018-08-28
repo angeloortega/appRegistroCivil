@@ -48,11 +48,15 @@ namespace appRegistroCivil.Views
         {
             TransactionSingletone.SendCommit();
             db = TransactionSingletone.db;
-            var person = from m in db.Persona
-                         select m;
             return RedirectToAction("Index");
         }
 
+        public ActionResult CancelTransaction()
+        {
+            TransactionSingletone.SendRollback();
+            db = TransactionSingletone.db;
+            return RedirectToAction("Index");
+        }
         public ActionResult PaisIndex(int id)
         {
            // TransactionSingletone.reloadDBContext();

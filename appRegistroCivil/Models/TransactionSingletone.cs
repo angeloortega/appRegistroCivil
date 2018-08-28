@@ -7,34 +7,42 @@ using System.Web;
 namespace appRegistroCivil.Models
 {
 
-        public class TransactionSingletone
+    public class TransactionSingletone
+    {
+        private static volatile TransactionSingletone instance = null;
+        public static RegistroCivilEntities db;
+        private static DbContextTransaction Transaction;
+
+
+        public static TransactionSingletone Instance()
         {
-            private static volatile TransactionSingletone instance = null;
-            public static RegistroCivilEntities db;
-            private static DbContextTransaction Transaction;
-
-
-            public static TransactionSingletone Instance()
+            if (instance == null)
             {
-                if (instance == null)
-                {
-                    instance = new TransactionSingletone();
-                }
-                return instance;
+                instance = new TransactionSingletone();
             }
+            return instance;
+        }
 
-            private TransactionSingletone()
-            {
-                db = new RegistroCivilEntities();
-                db.Configuration.LazyLoadingEnabled = false;
-                Transaction = db.Database.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
+        private TransactionSingletone()
+        {
+            db = new RegistroCivilEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            Transaction = db.Database.BeginTransaction(System.Data.IsolationLevel.RepeatableRead);
 
-            }
-            public static void UploadPerson(Persona person)
-            {
-                db.Persona.Add(person);
-            }
-            public static void SendCommit() {
+        }
+        public static void UploadPerson(Persona person)
+        {
+            db.Persona.Add(person);
+        }
+
+        public static void SendRollback()
+        {
+            Transaction.Rollback();
+            ResetInstance();
+        }
+
+        public static void SendCommit()
+        {
 
             try
             {
@@ -44,19 +52,21 @@ namespace appRegistroCivil.Models
             catch
             {
             }
-            finally {
+            finally
+            {
                 ResetInstance();
             }
-            }
-            public static void ResetInstance()
-            {
-                instance = null;
-                instance = new TransactionSingletone();
         }
-        public static void stopTransaction() {
+        public static void ResetInstance()
+        {
+            instance = null;
+            instance = new TransactionSingletone();
+        }
+        public static void stopTransaction()
+        {
             Transaction.Commit();
             db = null;
             Transaction = null;
         }
-        }
     }
+}
