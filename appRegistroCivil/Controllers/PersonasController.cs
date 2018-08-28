@@ -107,7 +107,7 @@ namespace appRegistroCivil.Views
             {
                 id = 1;
             }
-            if (id > db.Pais.Count()+1)
+            if (id > db.Pais.Count())
             {
                 id = 1;
             }
