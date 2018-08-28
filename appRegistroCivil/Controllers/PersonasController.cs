@@ -159,7 +159,7 @@ namespace appRegistroCivil.Views
             {
                 return HttpNotFound();
             }
-            ViewBag.video = db.Videos.Where(x => x.id == 1).First().info_bytes;
+            ViewBag.video = db.Videos.Where(x => x.id == persona.videoEntrevista).First().info_bytes;
             return View(persona);
         }
 
@@ -193,15 +193,20 @@ namespace appRegistroCivil.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idPersona,nbrPersona,idPaisNacimiento,idPaisResidencia,fchNacimiento,correo,foto,videoEntrevista")] Persona persona, HttpPostedFileBase file, HttpPostedFileBase fileVid)
+        public ActionResult Create([Bind(Include = "idPersona,nbrPersona,idPaisNacimiento,idPaisResidencia,fchNacimiento,correo,foto,videoEntrevista")] Persona persona, IEnumerable<HttpPostedFileBase> files)
         {
             persona.idPersona = db.Pais.Where(x => x.idPais == persona.idPaisResidencia).First().Persona.Count() + 1;
-            
-            Image convert = Image.FromStream(file.InputStream);
-            Image convertVid = Image.FromStream(fileVid.InputStream);
-            ImageConverter _imageConverter = new ImageConverter();
-            byte[] xByte = (byte[])_imageConverter.ConvertTo(convert, typeof(byte[]));
-            byte[] xByteVid = (byte[])_imageConverter.ConvertTo(convertVid, typeof(byte[]));
+            byte[] fileData = null;
+            using (var binaryReader = new BinaryReader(Request.Files[0].InputStream))
+            {
+                fileData = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+            }
+            byte[] xByte = fileData;
+            using (var binaryReader = new BinaryReader(Request.Files[1].InputStream))
+            {
+                fileData = binaryReader.ReadBytes(Request.Files[1].ContentLength);
+            }
+            byte[] xByteVid = fileData;
             Imagenes imageI = new Imagenes();
             Videos video = new Videos();
             //byte[] xByteVid = (byte[])_imageConverter.ConvertTo(convert, typeof(byte[]));

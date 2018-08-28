@@ -78,7 +78,7 @@
 
         <div class="form-group">
             @Html.Label("Foto de Bandera", htmlAttributes: new { @class = "control-label col-md-2" })
-            <img src="data:image;base64,@System.Convert.ToBase64String(ViewBag.fotoBandera)" width="80" height="80" />
+            <img class="noStretch" src="data:image;base64,@System.Convert.ToBase64String(ViewBag.fotoBandera)" width="80" height="80" />
             <label for="ImagePath" class="custom-ImagePath">
                 <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
             </label>

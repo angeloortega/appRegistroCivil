@@ -1,6 +1,16 @@
 ﻿<!DOCTYPE html>
 
 <style>
+
+    img {
+        width: 50px;
+        height: 50px;
+    }
+
+        img.noStretch {
+            object-fit: cover;
+        }
+
     select {
         min-height: 30px;
     }
@@ -77,11 +87,11 @@
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #00985f; color: #fff;">
         <div class="container">
             <div class="navbar-collapse collapse" style=" color: #fff;">
-                <a href="/Persona/Index" class="navbar-left"><img src="~/Resources/logo.png" width="40" height="40"></a>
+                <a href="/Personas/Index" class="navbar-left"><img src="~/Resources/logo.png" width="40" height="40"></a>
                 <ul class=" nav nav-pills" style=" color: #fff; padding-left: 2em;">
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" style=" color: #fff;">
-                            Funcionarios
+                            Países
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>@Html.ActionLink("Control de Países", "Index", "Personas")</li>

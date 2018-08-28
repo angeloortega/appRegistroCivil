@@ -109,7 +109,7 @@
             <label for="ImagePath" class="custom-ImagePath">
                 <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
             </label>
-            <input id="ImagePath" type="file" name="file" onchange="readURL(this);" style="display:none;" accept=".jpg, .jpeg, .png" />
+            <input id="ImagePath" type="file" name="files[0]" onchange="readURL(this);" style="display:none;" accept=".jpg, .jpeg, .png" />
         </div>
 
         <div class="form-group">
@@ -121,7 +121,7 @@
             <label for="VideoPath" class="custom-ImagePath">
                 <i class="fa fa-cloud-upload"></i> Seleccionar Video
             </label>
-            <input id="VideoPath" type="file" name="fileVid" onchange="readURLVid(this);" style="display:none;" accept=".mp4" />
+            <input id="VideoPath" type="file" name="files[1]" onchange="readURLVid(this);" style="display:none;" accept=".mp4" />
         </div>
 
         <div class="form-group">
