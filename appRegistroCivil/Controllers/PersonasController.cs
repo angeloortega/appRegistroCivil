@@ -18,11 +18,9 @@ namespace appRegistroCivil.Views
         public ActionResult Index()
         {
             db = TransactionSingletone.db;
-            //id = 1;
             var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p => p.idPaisResidencia == 1);
             ViewBag.totalPaises = db.Pais.Count();
             Pais pais = db.Pais.First();
-            //Pais pais = db.Pais.Where(x=>x.idPais == id).First();
             ViewBag.idPais = pais.idPais;
             ViewBag.nombrePais = pais.nbrPais;
             ViewBag.area = pais.area;
@@ -70,6 +68,7 @@ namespace appRegistroCivil.Views
 
         public ActionResult ListaPersonas()
         {
+            int idPais = ViewBag.idPais;
             var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos);
             return View(persona.ToList());
         }
@@ -189,9 +188,15 @@ namespace appRegistroCivil.Views
         {
             if (ModelState.IsValid)
             {
-                db.Entry(persona).State = EntityState.Modified;
+                db = new RegistroCivilEntities();
+                TransactionSingletone.stopTransaction();
+                db.Persona.Attach(persona);
+                var entity = db.Entry(persona);
+                entity.State = EntityState.Modified;
                 db.SaveChanges();
+                TransactionSingletone.ResetInstance();
                 return RedirectToAction("Index");
+                db = TransactionSingletone.db;
             }
             ViewBag.foto = new SelectList(db.Imagenes, "id", "descripcion", persona.foto);
             ViewBag.idPaisNacimiento = new SelectList(db.Pais, "idPais", "nbrPais", persona.idPaisNacimiento);
@@ -227,9 +232,15 @@ namespace appRegistroCivil.Views
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pais).State = EntityState.Modified;
+                db = new RegistroCivilEntities();
+                TransactionSingletone.stopTransaction();
+                db.Pais.Attach(pais);
+                var entity = db.Entry(pais);
+                entity.State = EntityState.Modified;
                 db.SaveChanges();
+                TransactionSingletone.ResetInstance();
                 return RedirectToAction("Index");
+                db = TransactionSingletone.db;
             }
             ViewBag.himnoNacional = new SelectList(db.Audios, "id", "descripcion", pais.himnoNacional);
             ViewBag.fotoBandera = new SelectList(db.Imagenes, "id", "descripcion", pais.fotoBandera);
