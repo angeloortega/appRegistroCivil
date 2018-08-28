@@ -52,6 +52,11 @@ namespace appRegistroCivil.Models
             {
                 instance = null;
                 instance = new TransactionSingletone();
-            }
+        }
+        public static void stopTransaction() {
+            Transaction.Commit();
+            db = null;
+            Transaction = null;
+        }
         }
     }

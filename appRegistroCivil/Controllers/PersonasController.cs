@@ -23,11 +23,9 @@ namespace appRegistroCivil.Views
         public ActionResult Index()
         {
             db = TransactionSingletone.db;
-            //id = 1;
-            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p => p.idPaisResidencia == 2);
+            var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos).Where(p => p.idPaisResidencia == 1);
             ViewBag.totalPaises = db.Pais.Count();
             Pais pais = db.Pais.First();
-            //Pais pais = db.Pais.Where(x=>x.idPais == id).First();
             ViewBag.idPais = pais.idPais;
             ViewBag.nombrePais = pais.nbrPais;
             ViewBag.area = pais.area;
@@ -98,6 +96,7 @@ namespace appRegistroCivil.Views
 
         public ActionResult ListaPersonas()
         {
+            int idPais = ViewBag.idPais;
             var persona = db.Persona.Include(p => p.Imagenes).Include(p => p.Pais).Include(p => p.Pais1).Include(p => p.Videos);
             return View(persona.ToList());
         }
@@ -115,6 +114,21 @@ namespace appRegistroCivil.Views
                 return HttpNotFound();
             }
             return View(persona);
+        }
+
+        // GET: Pais/Details/5
+        public ActionResult DetailsPais(decimal id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pais pais = db.Pais.Find(id);
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pais);
         }
 
         // GET: Personas/Create
@@ -220,9 +234,14 @@ namespace appRegistroCivil.Views
             if (ModelState.IsValid)
             {
                 db = new RegistroCivilEntities();
-                db.Entry(persona).State = EntityState.Modified;
+                TransactionSingletone.stopTransaction();
+                db.Persona.Attach(persona);
+                var entity = db.Entry(persona);
+                entity.State = EntityState.Modified;
                 db.SaveChanges();
+                TransactionSingletone.ResetInstance();
                 return RedirectToAction("Index");
+                db = TransactionSingletone.db;
             }
             ViewBag.foto = new SelectList(db.Imagenes, "id", "descripcion", persona.foto);
             ViewBag.idPaisNacimiento = new SelectList(db.Pais, "idPais", "nbrPais", persona.idPaisNacimiento);
@@ -231,14 +250,57 @@ namespace appRegistroCivil.Views
             return View(persona);
         }
 
-        // GET: Personas/Delete/5
-        public ActionResult Delete(decimal id)
+        // GET: Pais/Edit/5
+        public ActionResult EditPais(decimal id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Persona persona = db.Persona.Find(id);
+            Pais pais = db.Pais.Find(id);
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.himnoNacional = new SelectList(db.Audios, "id", "descripcion", pais.himnoNacional);
+            ViewBag.fotoBandera = new SelectList(db.Imagenes, "id", "descripcion", pais.fotoBandera);
+            ViewBag.idPresidenteActual = new SelectList(db.Persona.Where(p => p.idPaisNacimiento == id), "idPersona", "nbrPersona", pais.idPresidenteActual);
+            return View(pais);
+        }
+
+        // POST: Pais/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPais([Bind(Include = "idPais,nbrPais,area,poblacionActual,fotoBandera,himnoNacional,idPresidenteActual")] Pais pais)
+        {
+            if (ModelState.IsValid)
+            {
+                db = new RegistroCivilEntities();
+                TransactionSingletone.stopTransaction();
+                db.Pais.Attach(pais);
+                var entity = db.Entry(pais);
+                entity.State = EntityState.Modified;
+                db.SaveChanges();
+                TransactionSingletone.ResetInstance();
+                return RedirectToAction("Index");
+                db = TransactionSingletone.db;
+            }
+            ViewBag.himnoNacional = new SelectList(db.Audios, "id", "descripcion", pais.himnoNacional);
+            ViewBag.fotoBandera = new SelectList(db.Imagenes, "id", "descripcion", pais.fotoBandera);
+            ViewBag.idPresidenteActual = new SelectList(db.Persona.Where(p=>p.idPaisNacimiento==pais.idPais), "idPersona", "nbrPersona", pais.idPresidenteActual);
+            return View(pais);
+        }
+
+        // GET: Personas/Delete/5
+        public ActionResult Delete(decimal id, decimal id2)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Persona persona = db.Persona.Find(id, id2);
             if (persona == null)
             {
                 return HttpNotFound();
@@ -249,10 +311,36 @@ namespace appRegistroCivil.Views
         // POST: Personas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(decimal id)
+        public ActionResult DeleteConfirmed(decimal id, decimal id2)
         {
-            Persona persona = db.Persona.Find(id);
+            Persona persona = db.Persona.Find(id, id2);
             db.Persona.Remove(persona);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: Pais/Delete/5
+        public ActionResult DeletePais(decimal id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pais pais = db.Pais.Find(id);
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pais);
+        }
+
+        // POST: Pais/Delete/5
+        [HttpPost, ActionName("DeletePais")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedPais(decimal id)
+        {
+            Pais pais = db.Pais.Find(id);
+            db.Pais.Remove(pais);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
