@@ -65,13 +65,13 @@ namespace appRegistroCivil.Views
         }
 
         // GET: Pais/Edit/5
-        public ActionResult Edit(decimal id)
+        public ActionResult Edit(decimal id, decimal id2)
         {
-            if (id == null)
+            if (id == null | id2==null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pais pais = db.Pais.Find(id);
+            Pais pais = db.Pais.Find(id,id2);
             if (pais == null)
             {
                 return HttpNotFound();

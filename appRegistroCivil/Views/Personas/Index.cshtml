@@ -54,9 +54,9 @@
                 @ViewBag.foto
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "EditPais", new { id = ViewBag.idPais }) |
+                @Html.ActionLink("Details", "DetailsPais", new { id = ViewBag.idPais }) |
+                @Html.ActionLink("Delete", "DeletePais", new { id = ViewBag.idPais })
             </td>
         </tr>
     </table>

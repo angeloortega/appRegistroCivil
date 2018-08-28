@@ -1,0 +1,64 @@
+﻿@model IEnumerable<appRegistroCivil.Models.Persona>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nbrPersona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fchNacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.correo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagenes.descripcion)
+        </th>
+        <th>
+            Id Pais Nacimiento
+        </th>
+        <th>
+           Id Pais Residencia
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Videos.descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nbrPersona)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fchNacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.correo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imagenes.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idPaisNacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idPaisResidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Videos.descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idPersona, id2=item.idPaisResidencia }) |
+        </td>
+    </tr>
+}
+
+</table>
