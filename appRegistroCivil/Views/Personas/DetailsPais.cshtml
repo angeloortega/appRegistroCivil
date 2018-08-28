@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            Audios Descripcion
+            Himno
         </dt>
 
         <dd>
@@ -51,11 +51,21 @@
         </dd>
 
         <dt>
-            Imagenes Descripcion
+            Foto
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Imagenes.descripcion)
+            <img src="data:image;base64,@System.Convert.ToBase64String(ViewBag.foto)" width="50" height="50" />
+        </dd>
+        <dt>
+            Himno
+        </dt>
+
+        <dd>
+            <audio controls>
+                <source src="data:image;base64,@System.Convert.ToBase64String(ViewBag.himno)" type="audio/mp3">
+                Your browser does not support the video tag.
+            </audio>
         </dd>
 
     </dl>

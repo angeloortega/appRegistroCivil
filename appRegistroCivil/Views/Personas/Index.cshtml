@@ -67,7 +67,7 @@
     <li> @Html.ActionLink("Anterior", "PaisIndex", new { id = ViewBag.idPais - 1 }) </li>
     <li> @Html.ActionLink("pag. 50", "PaisIndex", new { id = 50 }) </li>
     <li>@Html.ActionLink("Siguiente", "PaisIndex", new { id = (ViewBag.idPais < ViewBag.totalPaises) ? (ViewBag.idPais + 1) : 1 }) </li>
-    <li>@Html.ActionLink("Ultimo", "PaisIndex", new { id = @ViewBag.totalPaises }) </li>
+    <li>@Html.ActionLink("Ultimo", "PaisIndex", new { id = @ViewBag.totalPaises +1}) </li>
 </ul>
 
 
