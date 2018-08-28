@@ -107,7 +107,7 @@ namespace appRegistroCivil.Views
             {
                 id = 1;
             }
-            if (id > db.Pais.Count())
+            if (id > db.Pais.Count()+1)
             {
                 id = 1;
             }
@@ -249,20 +249,30 @@ namespace appRegistroCivil.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePais([Bind(Include = "idPais,nbrPais,area,poblacionActual,fotoBandera,himnoNacional,idPresidenteActual")] Pais pais, HttpPostedFileBase file)
+        public ActionResult CreatePais([Bind(Include = "idPais,nbrPais,area,poblacionActual,fotoBandera,himnoNacional,idPresidenteActual")] Pais pais, HttpPostedFileBase file, HttpPostedFileBase fileAud)
         {
             Image convert = Image.FromStream(file.InputStream);
+            var ms = new MemoryStream();
+            fileAud.InputStream.CopyTo(ms);
+            byte[] fileBytes = ms.ToArray();
             ImageConverter _imageConverter = new ImageConverter();
             byte[] xByte = (byte[])_imageConverter.ConvertTo(convert, typeof(byte[]));
             Imagenes imageI = new Imagenes();
+            Audios audio = new Audios();
             //byte[] audiobyte = System.IO.File.ReadAllBytes("C:\\Users\\Giulliano\\Desktop\\interview.mp4");
             imageI.id = db.Imagenes.Count();
-            imageI.descripcion = ""+ pais.nbrPais + "";
+            imageI.descripcion = "" + pais.nbrPais + "";
             imageI.info_bytes = xByte;
+            audio.id = db.Audios.Count() + 1;
+            audio.descripcion = "Himno " + pais.nbrPais;
+            audio.info_bytes = fileBytes;
             pais.fotoBandera = imageI.id;
+            pais.himnoNacional = audio.id;
+            pais.idPais = db.Pais.Count() + 2;
             try
             {
                 db.Imagenes.Add(imageI);
+                db.Audios.Add(audio);
                 db.Pais.Add(pais);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -274,6 +284,7 @@ namespace appRegistroCivil.Views
                 return View(pais);
             }
         }
+
 
         // GET: Personas/Edit/5
         public ActionResult Edit(decimal id, decimal id2)

@@ -105,7 +105,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.foto, "foto", htmlAttributes: new { @class = "control-label col-md-2" })
-            <img id="imgFunc" src="data:image;base64,@System.Convert.ToBase64String(ViewBag.foto)" width="80" height="80" />
+            <img class="noStretch" id="imgFunc" src="data:image;base64,@System.Convert.ToBase64String(ViewBag.foto)" width="80" height="80" />
             <label for="ImagePath" class="custom-ImagePath">
                 <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
             </label>
