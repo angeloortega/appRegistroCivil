@@ -4,23 +4,64 @@
     ViewBag.Title = "Create";
 }
 
+
+@section styles{
+    <style>
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-ImagePath {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgFunc')
+                        .attr('src', e.target.result)
+                        .height(75);
+                };
+                reader.readAsDataURL(input.files[0]);
+
+            }
+        }
+        function readURLVid(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#vidFunc')
+                        .attr('src', e.target.result)
+                        .height(75);
+                };
+                reader.readAsDataURL(input.files[0]);
+
+            }
+        }
+    </script>
+}
+
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Personas", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Persona</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.idPersona, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.idPersona, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.idPersona, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.nbrPersona, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -64,18 +105,23 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.foto, "foto", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("foto", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.foto, "", new { @class = "text-danger" })
-            </div>
+            <img id="imgFunc" src="data:image;base64,@System.Convert.ToBase64String(ViewBag.foto)" width="80" height="80" />
+            <label for="ImagePath" class="custom-ImagePath">
+                <i class="fa fa-cloud-upload"></i> Seleccionar Imagen
+            </label>
+            <input id="ImagePath" type="file" name="file" onchange="readURL(this);" style="display:none;" accept=".jpg, .jpeg, .png" />
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.videoEntrevista, "videoEntrevista", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("videoEntrevista", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.videoEntrevista, "", new { @class = "text-danger" })
-            </div>
+            <video id="vidFunc" controls>
+                <source src="data:image;base64,@System.Convert.ToBase64String(ViewBag.videoEntrevista)" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <label for="VideoPath" class="custom-ImagePath">
+                <i class="fa fa-cloud-upload"></i> Seleccionar Video
+            </label>
+            <input id="VideoPath" type="file" name="fileVid" onchange="readURLVid(this);" style="display:none;" accept=".mp4" />
         </div>
 
         <div class="form-group">
